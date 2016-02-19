@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+	id="com.mil.debra.app.feature"
+	label="debra Application Feature"
+	version="1.0.0.qualifier"
+	provider-name="mil"
+	>
+		<description url="http://www.efxclipse.org">
+			TODO FILL WITH CONTENT
+		</description>
+
+		<copyright url="http://www.efxclipse.org">
+			TODO FILL WITH CONTENT
+		</copyright>
+
+		<license url="http://www.efxclipse.org">
+			TODO FILL WITH CONTENT
+		</license>
+
+   		<plugin id="com.mil.debra.app" install-size="0" version="0.0.0" unpack="false" />
+
+
+</feature>

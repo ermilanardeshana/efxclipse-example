@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_ZNwisdL_EeWLs76q27fD1A" elementId="org.eclipse.e4.application" bindingContexts="_ZNwisNL_EeWLs76q27fD1A">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_atGOgNL_EeWLs76q27fD1A" elementId="com.mil.debra.app.trimmedwindow.0" iconURI="platform:/plugin/com.mil.debra.app/resources/images/address_book_32.png" width="600" height="400">
+    <children xsi:type="advanced:Area" xmi:id="_fmniMNL_EeWLs76q27fD1A" elementId="com.mil.debra.app.area.0" horizontal="true">
+      <children xsi:type="basic:Part" xmi:id="_gSzSwNL_EeWLs76q27fD1A" elementId="com.mil.debra.app.part.0" contributionURI="bundleclass://com.mil.debra.app/com.mil.debra.app.parts.PersonAbstractPart.PersonAbstractPart"/>
+      <children xsi:type="basic:Part" xmi:id="_gsN4UNL_EeWLs76q27fD1A" elementId="com.mil.debra.app.part.1" contributionURI="bundleclass://com.mil.debra.app/com.mil.debra.app.parts.PersonDetailedInfoPart.PersonDetailedInfoPart"/>
+    </children>
+    <mainMenu xmi:id="_GoLnUNMCEeWLs76q27fD1A" elementId="com.mil.debra.app.menu.0">
+      <children xsi:type="menu:Menu" xmi:id="_HS4xMNMCEeWLs76q27fD1A" elementId="com.mil.debra.app.menu.file" label="File">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_MvyewNMCEeWLs76q27fD1A" elementId="com.mil.debra.app.handledmenuitem.new" label="New"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_P3PX4NMCEeWLs76q27fD1A" elementId="com.mil.debra.app.handledmenuitem.open" label="open"/>
+      </children>
+      <children xsi:type="menu:Menu" xmi:id="_Ic9-sNMCEeWLs76q27fD1A" elementId="com.mil.debra.app.menu.statistics" label="Statistics"/>
+      <children xsi:type="menu:Menu" xmi:id="_LG2yENMCEeWLs76q27fD1A" elementId="com.mil.debra.app.menu.help" label="Help">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_xF27MNP6EeWLs76q27fD1A" elementId="com.mil.debra.app.handledmenuitem.about" label="About " command="_2bGhkNP6EeWLs76q27fD1A"/>
+      </children>
+    </mainMenu>
+  </children>
+  <handlers xmi:id="_4Le6ENP6EeWLs76q27fD1A" elementId="com.mil.debra.app.handler.0" contributionURI="bundleclass://com.mil.debra.app/com.mil.debra.app.handlers.aboutHandler" command="_2bGhkNP6EeWLs76q27fD1A"/>
+  <rootContext xmi:id="_ZNwisNL_EeWLs76q27fD1A" elementId="org.eclipse.ui.contexts.dialogAndWindow" name="In Dialog and Windows">
+    <children xmi:id="_ZNwistL_EeWLs76q27fD1A" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
+    <children xmi:id="_ZNwis9L_EeWLs76q27fD1A" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
+  </rootContext>
+  <commands xmi:id="_2bGhkNP6EeWLs76q27fD1A" elementId="com.mil.debra.app.command.about" commandName="about"/>
+  <addons xmi:id="_ZNwitNL_EeWLs76q27fD1A" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
+  <addons xmi:id="_ZNwitdL_EeWLs76q27fD1A" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
+  <addons xmi:id="_ZNwittL_EeWLs76q27fD1A" elementId="org.eclipse.fx.ui.keybindings.e4.service" contributionURI="bundleclass://org.eclipse.fx.ui.keybindings.e4/org.eclipse.fx.ui.keybindings.e4.BindingServiceAddon"/>
+  <addons xmi:id="_ZNwit9L_EeWLs76q27fD1A" elementId="org.eclipse.e4.ui.workbench.commands.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.CommandProcessingAddon"/>
+  <addons xmi:id="_ZNwiuNL_EeWLs76q27fD1A" elementId="org.eclipse.e4.ui.workbench.contexts.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.ContextProcessingAddon"/>
+  <addons xmi:id="_ZNxJwNL_EeWLs76q27fD1A" elementId="org.eclipse.fx.ui.keybindings.e4.model" contributionURI="bundleclass://org.eclipse.fx.ui.keybindings.e4/org.eclipse.fx.ui.keybindings.e4.BindingProcessingAddon"/>
+  <addons xmi:id="_ZNxJwdL_EeWLs76q27fD1A" elementId="org.eclipse.e4.ui.workbench.addons.HandlerProcessingAddon" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.HandlerProcessingAddon"/>
+</application:Application>
