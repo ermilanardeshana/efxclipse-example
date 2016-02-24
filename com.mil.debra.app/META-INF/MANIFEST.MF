@@ -22,6 +22,9 @@ Require-Bundle: org.eclipse.fx.ui.workbench.fx,
  org.eclipse.fx.ui.services
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: javax.annotation;version="1.0.0";resolution:=optional,
- javax.inject;version="1.0.0"
+ javax.inject;version="1.0.0",
+ org.eclipse.fx.ui.workbench.renderers.fx.services,
+ org.osgi.service.component.annotations;version="1.2.0"
 Bundle-ActivationPolicy: lazy
-Service-Component: OSGI-INF/services/theme-default.xml
+Service-Component: OSGI-INF/services/theme-default.xml,OSGI-INF/services/lightweightDialogueService.xml,
+ OSGI-INF/services/com.mil.debra.app.service.LightWeightDialogueService.xml

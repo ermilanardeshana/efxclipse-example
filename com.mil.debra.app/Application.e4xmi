@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_ZNwisdL_EeWLs76q27fD1A" elementId="org.eclipse.e4.application" bindingContexts="_ZNwisNL_EeWLs76q27fD1A">
-  <children xsi:type="basic:TrimmedWindow" xmi:id="_atGOgNL_EeWLs76q27fD1A" elementId="com.mil.debra.app.trimmedwindow.0" iconURI="platform:/plugin/com.mil.debra.app/resources/images/address_book_32.png" width="600" height="400">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_atGOgNL_EeWLs76q27fD1A" elementId="com.mil.debra.app.trimmedwindow.0" iconURI="platform:/plugin/com.mil.debra.app/resources/images/address_book_32.png" width="700" height="470">
     <children xsi:type="advanced:Area" xmi:id="_fmniMNL_EeWLs76q27fD1A" elementId="com.mil.debra.app.area.0" horizontal="true">
       <children xsi:type="basic:Part" xmi:id="_gSzSwNL_EeWLs76q27fD1A" elementId="com.mil.debra.app.part.0" contributionURI="bundleclass://com.mil.debra.app/com.mil.debra.app.parts.PersonAbstractPart.PersonAbstractPart"/>
       <children xsi:type="basic:Part" xmi:id="_gsN4UNL_EeWLs76q27fD1A" elementId="com.mil.debra.app.part.1" contributionURI="bundleclass://com.mil.debra.app/com.mil.debra.app.parts.PersonDetailedInfoPart.PersonDetailedInfoPart"/>
@@ -15,6 +15,9 @@
         <children xsi:type="menu:HandledMenuItem" xmi:id="_xF27MNP6EeWLs76q27fD1A" elementId="com.mil.debra.app.handledmenuitem.about" label="About " command="_2bGhkNP6EeWLs76q27fD1A"/>
       </children>
     </mainMenu>
+  </children>
+  <children xsi:type="basic:Dialog" xmi:id="_zOhDwNe-EeWwBuw1ThfD9g" elementId="com.mil.debra.app.dialog.editdialogue" toBeRendered="false" visible="false" label="Edit Dialogue" iconURI="platform:/plugin/com.mil.debra.app/resources/images/edit.png">
+    <children xsi:type="basic:Part" xmi:id="_3snmwNe-EeWwBuw1ThfD9g" elementId="com.mil.debra.app.part.editperson" contributionURI="bundleclass://com.mil.debra.app/com.mil.debra.app.parts.PersonEditDialogue.PersonEditDialogue" label="Edit Person"/>
   </children>
   <handlers xmi:id="_4Le6ENP6EeWLs76q27fD1A" elementId="com.mil.debra.app.handler.0" contributionURI="bundleclass://com.mil.debra.app/com.mil.debra.app.handlers.aboutHandler" command="_2bGhkNP6EeWLs76q27fD1A"/>
   <rootContext xmi:id="_ZNwisNL_EeWLs76q27fD1A" elementId="org.eclipse.ui.contexts.dialogAndWindow" name="In Dialog and Windows">
