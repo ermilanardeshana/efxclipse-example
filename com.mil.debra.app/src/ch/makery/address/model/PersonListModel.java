@@ -1,6 +1,5 @@
-package ch.makery.address.model;
 
-import java.security.Permissions;
+package ch.makery.address.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

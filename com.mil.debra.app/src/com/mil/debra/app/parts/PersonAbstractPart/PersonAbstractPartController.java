@@ -130,6 +130,7 @@ public class PersonAbstractPartController implements IPersonListener{
 	 * 
 	 * @param person the person or null
 	 */
+	@SuppressWarnings("unused")
 	private void showPersonDetails(Person person) {
 		if (person != null) {
 			// Fill the labels with info from the person object.
