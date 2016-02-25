@@ -1,17 +1,16 @@
 package com.mil.debra.app.parts.PersonDetailedInfoPart;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
-import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.model.application.MApplication;
-import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
+
+import com.mil.debra.app.Observer.IPersonListener;
+import com.mil.debra.app.Observer.PersonListObserver;
 
 import ch.makery.address.model.Person;
 import ch.makery.address.model.PersonListModel;
 import ch.makery.address.util.DateUtil;
-import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -20,7 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 
-public class PersonDetailedInfoPartController {
+public class PersonDetailedInfoPartController  implements IPersonListener{
 	@FXML
 	private TableView<Person> personTable;
 	//    @FXML
@@ -70,7 +69,8 @@ public class PersonDetailedInfoPartController {
 	 */
 	@FXML
 	private void initialize() {
-
+		PersonListObserver.observer.register(this);
+		
 		//    		firstNameLabel.setText(selectedPerson.getFirstName());
 		//            lastNameLabel.setText(selectedPerson.getLastName());
 		//            streetLabel.setText(selectedPerson.getStreet());
@@ -245,17 +245,39 @@ public class PersonDetailedInfoPartController {
 	//     }
 	// }
 
-	@Inject
-	void setSelection(@Optional @Named(IServiceConstants.ACTIVE_SELECTION) Person selectedPerson) {
-		System.out.println("readSelection: " + selectedPerson);
-		this.selectedPerson = selectedPerson;
-		if(null != selectedPerson){
-			firstNameLabel.textProperty().bind(selectedPerson.firstNameProperty());
-			lastNameLabel.textProperty().bind(selectedPerson.lastNameProperty());
-			streetLabel.textProperty().bind(selectedPerson.streetProperty());
-			postalCodeLabel.textProperty().bind(Bindings.convert(selectedPerson.postalCodeProperty()));
-			cityLabel.textProperty().bind(selectedPerson.cityProperty());
-			birthdayLabel.textProperty().bind(Bindings.convert(selectedPerson.birthdayProperty()));
+//	@Inject
+//	void setSelection(@Optional @Named(IServiceConstants.ACTIVE_SELECTION) Person selectedPerson) {
+//		System.out.println("readSelection: " + selectedPerson);
+//		this.selectedPerson = selectedPerson;
+//		if(null != selectedPerson){
+//			firstNameLabel.textProperty().bind(selectedPerson.firstNameProperty());
+//			lastNameLabel.textProperty().bind(selectedPerson.lastNameProperty());
+//			streetLabel.textProperty().bind(selectedPerson.streetProperty());
+//			postalCodeLabel.textProperty().bind(Bindings.convert(selectedPerson.postalCodeProperty()));
+//			cityLabel.textProperty().bind(selectedPerson.cityProperty());
+//			birthdayLabel.textProperty().bind(Bindings.convert(selectedPerson.birthdayProperty()));
+//		}
+//	}
+
+	@Override
+	public void selectionChanged(Person person) {
+		this.selectedPerson = person;
+		if (selectedPerson != null) {
+			// Fill the labels with info from the person object.
+			firstNameLabel.setText(selectedPerson.getFirstName());
+			lastNameLabel.setText(selectedPerson.getLastName());
+			streetLabel.setText(selectedPerson.getStreet());
+			postalCodeLabel.setText(Integer.toString(selectedPerson.getPostalCode()));
+			cityLabel.setText(selectedPerson.getCity());
+			birthdayLabel.setText(DateUtil.format(selectedPerson.getBirthday()));
+		} else {
+			// Person is null, remove all the text.
+			firstNameLabel.setText("");
+			lastNameLabel.setText("");
+			streetLabel.setText("");
+			postalCodeLabel.setText("");
+			cityLabel.setText("");
+			birthdayLabel.setText("");
 		}
 	}
 }

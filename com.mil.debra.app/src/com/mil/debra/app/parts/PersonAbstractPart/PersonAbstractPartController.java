@@ -1,26 +1,18 @@
 package com.mil.debra.app.parts.PersonAbstractPart;
 
-import javax.inject.Inject;
-
-import org.eclipse.e4.core.contexts.ContextInjectionFactory;
-import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
+import com.mil.debra.app.Observer.IPersonListener;
+import com.mil.debra.app.Observer.PersonListObserver;
 
 import ch.makery.address.model.Person;
 import ch.makery.address.model.PersonListModel;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
-public class PersonAbstractPartController {
+public class PersonAbstractPartController implements IPersonListener{
 	@FXML
 	private TableView<Person> personTable;
 
@@ -29,9 +21,6 @@ public class PersonAbstractPartController {
 	@FXML
 	private TableColumn<Person, String> lastNameColumn;
 
-	@FXML
-	@Inject
-	private ESelectionService selectionService;
 	/**
 	 * The constructor.
 	 * The constructor is called before the initialize() method.
@@ -45,20 +34,51 @@ public class PersonAbstractPartController {
 	 */
 	@FXML
 	private void initialize() {
+		ObservableList<Person> personList = PersonListModel.getInstance().getPersonList();
+
+		
 		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
 		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
 		personTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Person>() {
 
 			@Override
 			public void changed(ObservableValue<? extends Person> observable, Person oldValue, Person newValue) {
-				selectionService.setSelection(newValue);
-				System.out.println("set: " + newValue); 
+				PersonListObserver.observer.select(newValue);
+				personTable.getSelectionModel().select(newValue);
+				System.out.println("set: " + newValue.getFirstName()); 
 			}
 		});
-		ObservableList<Person> personList = PersonListModel.getInstance().getPersonList();
+		
+		
+//		personList.addListener(new ListChangeListener<Person>() {
+//
+//			@Override
+//			public void onChanged(javafx.collections.ListChangeListener.Change<? extends Person> c) {
+//					TableViewSelectionModel<Person> selectionModel = personTable.getSelectionModel();
+//					selectionModel.select(0);
+//					//selectionModel.focus(0);
+//				Person selectedItem = selectionModel.getSelectedItem();
+//					selectionService.setSelection(selectedItem);
+//				
+//			}
+//		});
 		personTable.setItems(personList);
-//		personList.addListener(new ListChangeListener<Person>{
-//			
+//		personList.addListener(new ListChangeListener<Person>(){
+//			 
+//
+//			@Override
+//			public void onChanged(Change<? extends Person> c) {
+////				System.out.println(c.getFrom());
+////				if(personTable.getItems().size()>c.getFrom()){
+////					personTable.getSelectionModel().select(c.getFrom());
+////				}else{
+////					personTable.getSelectionModel().select(c.getFrom()-1);
+////				}
+//////				personTable.getSelectionModel().select();
+////				System.out.println("removed person");
+////			}
+//				
+//			}
 //		});
 		
 //		personTable.itemsProperty().bind(Bindings.createObjectBinding(()->FXCollections.observableArrayList(PersonListModel.getInstance().getPersonList())));
@@ -127,6 +147,13 @@ public class PersonAbstractPartController {
 			//            cityLabel.setText("");
 			//            birthdayLabel.setText("");
 		}
+	}
+
+	@Override
+	public void selectionChanged(Person person) {
+		personTable.getSelectionModel().select(person);
+		System.out.println("set: " + person.getFirstName()); 
+		
 	}
 
 	/**
