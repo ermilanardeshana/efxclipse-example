@@ -135,10 +135,10 @@ public class PersonDetailedInfoPartController {
 	@FXML
 	private void handleDeletePerson() {
 		if (null != selectedPerson) {
-			modelList = PersonListModel.getInstance().getModelList();
+			modelList = PersonListModel.getInstance().getPersonList();
 			System.out.println(modelList.size());
-			PersonListModel.getInstance().delete(selectedPerson);
-			modelList = PersonListModel.getInstance().getModelList();
+			PersonListModel.getInstance().removePerson(selectedPerson);
+			modelList = PersonListModel.getInstance().getPersonList();
 			System.out.println(modelList.size());
 		} else {
 			// Nothing selected.

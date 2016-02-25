@@ -8,10 +8,13 @@ import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 
 import ch.makery.address.model.Person;
 import ch.makery.address.model.PersonListModel;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -52,7 +55,13 @@ public class PersonAbstractPartController {
 				System.out.println("set: " + newValue); 
 			}
 		});
-		personTable.itemsProperty().bind(Bindings.createObjectBinding(()->FXCollections.observableArrayList(PersonListModel.getInstance().getModelList())));
+		ObservableList<Person> personList = PersonListModel.getInstance().getPersonList();
+		personTable.setItems(personList);
+//		personList.addListener(new ListChangeListener<Person>{
+//			
+//		});
+		
+//		personTable.itemsProperty().bind(Bindings.createObjectBinding(()->FXCollections.observableArrayList(PersonListModel.getInstance().getPersonList())));
 //		personTable.itemsProperty().bind();
 		//    	 FXMLLoader loader = new FXMLLoader(
 		//    			 PersonAbstractPartController.class.getResource(
