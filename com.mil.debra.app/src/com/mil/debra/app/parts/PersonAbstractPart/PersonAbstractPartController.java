@@ -45,6 +45,7 @@ public class PersonAbstractPartController implements IPersonListener{
 			public void changed(ObservableValue<? extends Person> observable, Person oldValue, Person newValue) {
 				PersonListObserver.observer.select(newValue);
 				personTable.getSelectionModel().select(newValue);
+				//add test case
 				System.out.println("set: " + newValue.getFirstName()); 
 			}
 		});
