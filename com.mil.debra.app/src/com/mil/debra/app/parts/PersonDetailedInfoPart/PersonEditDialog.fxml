@@ -41,6 +41,6 @@
             <Button defaultButton="true" mnemonicParsing="false" onAction="#handleOk" text="OK" />
           <Button mnemonicParsing="false" onAction="#handleCancel" prefWidth="120.0" text="Cancel" />
         </buttons>
-      </ButtonBar
+      </ButtonBar>
    </children>
 </AnchorPane>

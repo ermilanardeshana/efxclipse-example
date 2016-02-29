@@ -6,7 +6,12 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
+import com.mil.debra.app.Observer.IPersonListener;
+import com.mil.debra.app.Observer.PersonListObserver;
+
 import ch.makery.address.model.Person;
+import ch.makery.address.model.PersonListModel;
 import ch.makery.address.util.DateUtil;
 
 /**
@@ -14,7 +19,7 @@ import ch.makery.address.util.DateUtil;
  * 
  * @author Marco Jakob
  */
-public class PersonEditDialogueController {
+public class PersonEditDialogueController implements IPersonListener {
 
     @FXML
     private TextField firstNameField;
@@ -29,9 +34,8 @@ public class PersonEditDialogueController {
     @FXML
     private TextField birthdayField;
 
-
+    private Person selectedPerson;
     private Stage dialogStage;
-    private Person person;
     private boolean okClicked = false;
 
     /**
@@ -40,6 +44,7 @@ public class PersonEditDialogueController {
      */
     @FXML
     private void initialize() {
+    	PersonListObserver.observer.register(this);
     }
 
     /**
@@ -60,7 +65,7 @@ public class PersonEditDialogueController {
      * @param person
      */
     public void setPerson(Person person) {
-        this.person = person;
+        this.selectedPerson = person;
 
         firstNameField.setText(person.getFirstName());
         lastNameField.setText(person.getLastName());
@@ -86,13 +91,15 @@ public class PersonEditDialogueController {
     @FXML
     private void handleOk() {
         if (isInputValid()) {
-            person.setFirstName(firstNameField.getText());
-            person.setLastName(lastNameField.getText());
-            person.setStreet(streetField.getText());
-            person.setPostalCode(Integer.parseInt(postalCodeField.getText()));
-            person.setCity(cityField.getText());
-            person.setBirthday(DateUtil.parse(birthdayField.getText()));
-
+            selectedPerson.setFirstName(firstNameField.getText());
+            selectedPerson.setLastName(lastNameField.getText());
+            selectedPerson.setStreet(streetField.getText());
+            selectedPerson.setPostalCode(Integer.parseInt(postalCodeField.getText()));
+            selectedPerson.setCity(cityField.getText());
+            selectedPerson.setBirthday(DateUtil.parse(birthdayField.getText()));
+//            PersonListModel.getInstance().removePerson(selectedPerson);
+            PersonListModel.getInstance().addPerson(selectedPerson);
+            PersonListObserver.observer.select(selectedPerson);
             okClicked = true;
             dialogStage.close();
         }
@@ -162,4 +169,17 @@ public class PersonEditDialogueController {
             return false;
         }
     }
+
+	@Override
+	public void selectionChanged(Person person) {
+		this.selectedPerson = person;
+		if (selectedPerson != null) {  firstNameField.setText(person.getFirstName());
+        lastNameField.setText(person.getLastName());
+        streetField.setText(person.getStreet());
+        postalCodeField.setText(Integer.toString(person.getPostalCode()));
+        cityField.setText(person.getCity());
+        birthdayField.setText(DateUtil.format(person.getBirthday()));
+        birthdayField.setPromptText("dd.mm.yyyy");
+        }
+	}
 }

@@ -1,5 +1,7 @@
 package com.mil.debra.app.parts.PersonDetailedInfoPart;
 
+import java.io.IOException;
+
 import javax.inject.Inject;
 
 import org.eclipse.e4.ui.model.application.MApplication;
@@ -13,25 +15,28 @@ import ch.makery.address.model.PersonListModel;
 import ch.makery.address.util.DateUtil;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
+import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class PersonDetailedInfoPartController  implements IPersonListener{
 	@FXML
 	private TableView<Person> personTable;
-	//    @FXML
-	//    private TableColumn<Person, String> firstNameColumn;
-	//    @FXML
-	//    private TableColumn<Person, String> lastNameColumn;
 
 	@Inject
 	EModelService modelService;
 	@Inject
 	MApplication application;
-	private Person selectedPerson;
+	
+	private static Person selectedPerson;
 	@FXML
 	private Label firstNameLabel;
 	@FXML
@@ -70,64 +75,7 @@ public class PersonDetailedInfoPartController  implements IPersonListener{
 	@FXML
 	private void initialize() {
 		PersonListObserver.observer.register(this);
-		
-		//    		firstNameLabel.setText(selectedPerson.getFirstName());
-		//            lastNameLabel.setText(selectedPerson.getLastName());
-		//            streetLabel.setText(selectedPerson.getStreet());
-		//            postalCodeLabel.setText(Integer.toString(selectedPerson.getPostalCode()));
-		//            cityLabel.setText(selectedPerson.getCity());
-		//            birthdayLabel.setText(DateUtil.format(selectedPerson.getBirthday()));
-
-
-		// Initialize the person table with the two columns.
-		//        firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
-		//        lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
-
-		// Clear person details.
-		//        showPersonDetails(null);
-
-		// Listen for selection changes and show the person details when changed.
-		//        personTable.getSelectionModel().selectedItemProperty().addListener(
-		//                (observable, oldValue, newValue) -> showPersonDetails(newValue));
 	}
-
-	/**
-	 * Is called by the main application to give a reference back to itself.
-	 * 
-	 * @param mainApp
-	 */
-	//    public void setMainApp(MainApp mainApp) {
-	//        this.mainApp = mainApp;
-	//
-	//        // Add observable list data to the table
-	//        personTable.setItems(mainApp.getPersonData());
-	//    }
-
-	/**
-	 * Fills all text fields to show details about the person.
-	 * If the specified person is null, all text fields are cleared.
-	 * 
-	 * @param person the person or null
-	 */
-//	public void showPersonDetails(Person person) {
-//		if (person != null) {
-//			// Fill the labels with info from the person object.
-//			firstNameLabel.setText(person.getFirstName());
-//			lastNameLabel.setText(person.getLastName());
-//			streetLabel.setText(person.getStreet());
-//			postalCodeLabel.setText(Integer.toString(person.getPostalCode()));
-//			cityLabel.setText(person.getCity());
-//			birthdayLabel.setText(DateUtil.format(person.getBirthday()));
-//		} else {
-//			// Person is null, remove all the text.
-//			firstNameLabel.setText("");
-//			lastNameLabel.setText("");
-//			streetLabel.setText("");
-//			postalCodeLabel.setText("");
-//			cityLabel.setText("");
-//			birthdayLabel.setText("");
-//		}
-//	}
 
 	/**
 	 * Called when the user clicks on the delete button.
@@ -135,18 +83,17 @@ public class PersonDetailedInfoPartController  implements IPersonListener{
 	@FXML
 	private void handleDeletePerson() {
 		if (null != selectedPerson) {
-			modelList = PersonListModel.getInstance().getPersonList();
-			System.out.println(modelList.size());
+			if( 0 ==  PersonListModel.getInstance().getPersonList().size()){
+				selectedPerson = null;
+			}
 			PersonListModel.getInstance().removePerson(selectedPerson);
-			modelList = PersonListModel.getInstance().getPersonList();
-			System.out.println(modelList.size());
+			
 		} else {
 			// Nothing selected.
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("No Selection");
 			alert.setHeaderText("No Person Selected");
 			alert.setContentText("Please select a person in the table.");
-
 			alert.showAndWait();
 		}
 	}
@@ -154,110 +101,76 @@ public class PersonDetailedInfoPartController  implements IPersonListener{
 	/**
 	 * Called when the user clicks the new button. Opens a dialog to edit
 	 * details for a new person.
+	 * @throws IOException 
 	 */
 	@FXML
-	private void handleNewPerson() {
-		//        Person tempPerson = new Person();
-		//        boolean okClicked = mainApp.showPersonEditDialog(tempPerson);
-		//        if (okClicked) {
-		//            mainApp.getPersonData().add(tempPerson);
-		//        }
+	private boolean handleNewPerson() throws IOException {
+		        Person tempPerson = new Person();
+				 FXMLLoader loader = new FXMLLoader();
+		         loader.setLocation(PersonDetailedInfoPartController.class.getResource("PersonEditDialog.fxml"));
+		         AnchorPane page = (AnchorPane) loader.load();
+
+		         // Create the dialog Stage.
+		         Stage dialogStage = new Stage();
+		         dialogStage.setTitle("Edit Person");
+		         dialogStage.initModality(Modality.APPLICATION_MODAL);
+		         Scene scene = new Scene(page);
+		         dialogStage.setScene(scene);
+
+		         // Set the person into the controller.
+		         PersonEditDialogueController controller = loader.getController();
+		         controller.setDialogStage(dialogStage);
+		         controller.setPerson(tempPerson);
+		         
+		         // Set the dialog icon.
+		         dialogStage.getIcons().add(new Image("file:resources/images/edit.png"));
+
+		         // Show the dialog and wait until the user closes it
+		         dialogStage.showAndWait();
+		         
+		         return controller.isOkClicked();
 	}
 
 	/**
 	 * Called when the user clicks the edit button. Opens a dialog to edit
 	 * details for the selected person.
+	 * @throws IOException 
 	 */
 	@FXML
-	private void handleEditPerson() {
-		//        Person selectedPerson = personTable.getSelectionModel().getSelectedItem();
-		//        if (selectedPerson != null) {
-		//            boolean okClicked = mainApp.showPersonEditDialog(selectedPerson);
-		//            if (okClicked) {
-		//                showPersonDetails(selectedPerson);
-		//            }
-		//
-		//        } else {
-		//            // Nothing selected.
-		//            Alert alert = new Alert(AlertType.WARNING);
-		//            alert.initOwner(mainApp.getPrimaryStage());
-		//            alert.setTitle("No Selection");
-		//            alert.setHeaderText("No Person Selected");
-		//            alert.setContentText("Please select a person in the table.");
-		//            
-		//            alert.showAndWait();
-		//        }
+	private boolean handleEditPerson() throws IOException {
+		 if(null ==selectedPerson){
+			// Nothing selected.
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("No Selection");
+				alert.setHeaderText("No Person Selected");
+				alert.setContentText("Please select a person in the table.");
+				alert.showAndWait();
+				return false;
+		 }
+		 FXMLLoader loader = new FXMLLoader();
+         loader.setLocation(PersonDetailedInfoPartController.class.getResource("PersonEditDialog.fxml"));
+         AnchorPane page = (AnchorPane) loader.load();
+
+         // Create the dialog Stage.
+         Stage dialogStage = new Stage();
+         dialogStage.setTitle("Edit Person");
+         dialogStage.initModality(Modality.APPLICATION_MODAL);
+         Scene scene = new Scene(page);
+         dialogStage.setScene(scene);
+
+         // Set the person into the controller.
+         PersonEditDialogueController controller = loader.getController();
+         controller.setDialogStage(dialogStage);
+         controller.setPerson(selectedPerson);
+         
+         // Set the dialog icon.
+         dialogStage.getIcons().add(new Image("file:resources/images/edit.png"));
+
+         // Show the dialog and wait until the user closes it
+         dialogStage.showAndWait();
+         
+         return controller.isOkClicked();
 	}
-
-	/**
-	 * Validates the user input in the text fields.
-	 * 
-	 * @return true if the input is valid
-	 */
-	// private boolean isInputValid() {
-	//     String errorMessage = "";
-	//
-	//     if (firstNameField.getText() == null || firstNameField.getText().length() == 0) {
-	//         errorMessage += "No valid first name!\n"; 
-	//     }
-	//     if (lastNameField.getText() == null || lastNameField.getText().length() == 0) {
-	//         errorMessage += "No valid last name!\n"; 
-	//     }
-	//     if (streetField.getText() == null || streetField.getText().length() == 0) {
-	//         errorMessage += "No valid street!\n"; 
-	//     }
-	//
-	//     if (postalCodeField.getText() == null || postalCodeField.getText().length() == 0) {
-	//         errorMessage += "No valid postal code!\n"; 
-	//     } else {
-	//         // try to parse the postal code into an int.
-	//         try {
-	//             Integer.parseInt(postalCodeField.getText());
-	//         } catch (NumberFormatException e) {
-	//             errorMessage += "No valid postal code (must be an integer)!\n"; 
-	//         }
-	//     }
-	//
-	//     if (cityField.getText() == null || cityField.getText().length() == 0) {
-	//         errorMessage += "No valid city!\n"; 
-	//     }
-	//
-	//     if (birthdayField.getText() == null || birthdayField.getText().length() == 0) {
-	//         errorMessage += "No valid birthday!\n";
-	//     } else {
-	//         if (!DateUtil.validDate(birthdayField.getText())) {
-	//             errorMessage += "No valid birthday. Use the format dd.mm.yyyy!\n";
-	//         }
-	//     }
-	//
-	//     if (errorMessage.length() == 0) {
-	//         return true;
-	//     } else {
-	//         // Show the error message.
-	//         Alert alert = new Alert(AlertType.ERROR);
-	//         alert.setTitle("Invalid Fields");
-	//         alert.setHeaderText("Please correct invalid fields");
-	//         alert.setContentText(errorMessage);
-	//         
-	//         alert.showAndWait();
-	//         
-	//         return false;
-	//     }
-	// }
-
-//	@Inject
-//	void setSelection(@Optional @Named(IServiceConstants.ACTIVE_SELECTION) Person selectedPerson) {
-//		System.out.println("readSelection: " + selectedPerson);
-//		this.selectedPerson = selectedPerson;
-//		if(null != selectedPerson){
-//			firstNameLabel.textProperty().bind(selectedPerson.firstNameProperty());
-//			lastNameLabel.textProperty().bind(selectedPerson.lastNameProperty());
-//			streetLabel.textProperty().bind(selectedPerson.streetProperty());
-//			postalCodeLabel.textProperty().bind(Bindings.convert(selectedPerson.postalCodeProperty()));
-//			cityLabel.textProperty().bind(selectedPerson.cityProperty());
-//			birthdayLabel.textProperty().bind(Bindings.convert(selectedPerson.birthdayProperty()));
-//		}
-//	}
 
 	@Override
 	public void selectionChanged(Person person) {
