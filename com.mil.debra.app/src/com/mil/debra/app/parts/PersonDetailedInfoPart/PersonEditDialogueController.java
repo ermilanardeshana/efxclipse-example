@@ -82,6 +82,7 @@ public class PersonEditDialogueController implements IPersonListener {
      * @return
      */
     public boolean isOkClicked() {
+    	PersonListObserver.observer.unregister(this);
         return okClicked;
     }
 

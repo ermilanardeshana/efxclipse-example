@@ -13,7 +13,6 @@ import com.mil.debra.app.Observer.PersonListObserver;
 import ch.makery.address.model.Person;
 import ch.makery.address.model.PersonListModel;
 import ch.makery.address.util.DateUtil;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -59,7 +58,6 @@ public class PersonDetailedInfoPartController  implements IPersonListener{
 	private Button cancelButton;
 	@FXML
 	private Button okButton;
-	private ObservableList<Person> modelList;
 
 	/**
 	 * The constructor.
@@ -112,7 +110,7 @@ public class PersonDetailedInfoPartController  implements IPersonListener{
 
 		         // Create the dialog Stage.
 		         Stage dialogStage = new Stage();
-		         dialogStage.setTitle("Edit Person");
+		         dialogStage.setTitle("New Person");
 		         dialogStage.initModality(Modality.APPLICATION_MODAL);
 		         Scene scene = new Scene(page);
 		         dialogStage.setScene(scene);
@@ -123,7 +121,7 @@ public class PersonDetailedInfoPartController  implements IPersonListener{
 		         controller.setPerson(tempPerson);
 		         
 		         // Set the dialog icon.
-		         dialogStage.getIcons().add(new Image("file:resources/images/edit.png"));
+		         dialogStage.getIcons().add(new Image("resources/images/edit.png"));
 
 		         // Show the dialog and wait until the user closes it
 		         dialogStage.showAndWait();
@@ -164,7 +162,7 @@ public class PersonDetailedInfoPartController  implements IPersonListener{
          controller.setPerson(selectedPerson);
          
          // Set the dialog icon.
-         dialogStage.getIcons().add(new Image("file:resources/images/edit.png"));
+         dialogStage.getIcons().add(new Image("resources/images/edit.png"));
 
          // Show the dialog and wait until the user closes it
          dialogStage.showAndWait();
@@ -174,7 +172,7 @@ public class PersonDetailedInfoPartController  implements IPersonListener{
 
 	@Override
 	public void selectionChanged(Person person) {
-		this.selectedPerson = person;
+		selectedPerson = person;
 		if (selectedPerson != null) {
 			// Fill the labels with info from the person object.
 			firstNameLabel.setText(selectedPerson.getFirstName());

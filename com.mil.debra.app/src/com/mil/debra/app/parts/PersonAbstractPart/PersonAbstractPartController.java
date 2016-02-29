@@ -60,16 +60,9 @@ public class PersonAbstractPartController implements IPersonListener{
 
 	@Override
 	public void selectionChanged(Person person) {
-		// TODO Auto-generated method stub
-		
+		personTable.getSelectionModel().select(person);
 	}
 
-//	@Override
-//	public void selectionChanged(Person person) {
-//		personTable.getSelectionModel().select(person);
-//		System.out.println("set: " + person.getFirstName()); 
-//
-//	}
 
 
 }
