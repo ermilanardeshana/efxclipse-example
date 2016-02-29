@@ -15,9 +15,9 @@ import ch.makery.address.model.PersonListModel;
 import ch.makery.address.util.DateUtil;
 
 /**
- * Dialog to edit details of a person.
- * 
- * @author Marco Jakob
+ *  Dialog to edit details of a person.
+ * @author Milan
+ *
  */
 public class PersonEditDialogueController implements IPersonListener {
 

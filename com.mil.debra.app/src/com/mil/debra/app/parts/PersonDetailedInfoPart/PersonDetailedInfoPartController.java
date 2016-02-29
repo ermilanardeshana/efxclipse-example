@@ -26,6 +26,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * @author Milan
+ *
+ */
 public class PersonDetailedInfoPartController  implements IPersonListener{
 	@FXML
 	private TableView<Person> personTable;

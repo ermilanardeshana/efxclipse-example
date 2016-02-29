@@ -36,6 +36,10 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * @author Milan
+ *
+ */
 public class PersonDetailedInfoPart {
 
 

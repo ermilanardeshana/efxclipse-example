@@ -22,6 +22,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
+/**
+ * 
+ * @author Milan
+ *
+ */
 public class PersonAbstractPart {
 	@Inject
 	IEclipseContext eclipseContext;

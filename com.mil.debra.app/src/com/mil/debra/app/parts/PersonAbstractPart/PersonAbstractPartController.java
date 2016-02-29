@@ -12,6 +12,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
+/**
+ * @author Milan
+ *
+ */
 public class PersonAbstractPartController implements IPersonListener{
 	@FXML
 	private TableView<Person> personTable;
