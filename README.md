@@ -7,7 +7,7 @@ This example is pure e4 and javafx application.
 Tutorial is <a href="https://milanardeshana.wordpress.com/library/" >here</a>.
 Here e(fx)clipse version used is 2.1.0 with eclipse ide 4.5.1.
 
-First of all thanks to Marco Jacob for providing great <a href="http://code.makery.ch/library/javafx-8-tutorial/">tutorial</a> for javafx 8.
+First of all thanks to Marco Jakob for providing great <a href="http://code.makery.ch/library/javafx-8-tutorial/">tutorial</a> for javafx 8.
 Here, example is similar but with more or less modification and use of observer pattern in java and some eclipse e4 funadamentals.
 
 This example signed under Licensed.
