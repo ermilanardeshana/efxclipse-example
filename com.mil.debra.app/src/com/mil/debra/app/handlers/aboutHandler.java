@@ -1,4 +1,4 @@
- 
+
 package com.mil.debra.app.handlers;
 
 import org.eclipse.e4.core.di.annotations.Execute;
@@ -11,8 +11,8 @@ public class aboutHandler {
 	  	Alert alert = new Alert(AlertType.INFORMATION);
     	alert.setTitle("AddressApp");
     	alert.setHeaderText("About");
-    	alert.setContentText("Author: Marco Jakob\nWebsite: http://code.makery.ch");
+    	alert.setContentText("Author: Milan Ardeshana\nWebsite: https://milanardeshana.wordpress.com/");
     	alert.showAndWait();
 	}
-		
+
 }
