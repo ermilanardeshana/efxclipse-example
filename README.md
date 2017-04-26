@@ -1,7 +1,7 @@
 # efxclipse-example
 efxclipse example application for contact details
  
-<img src="https://github.com/ermilanardeshana/efxclipse-example/blob/master/contact_app.JPG" alt="Contact App" width="400" height="300"\>
+<img src="https://github.com/ermilanardeshana/efxclipse-example/blob/master/contact_app.JPG" \>
 
 This example is pure e4 and javafx application. 
 Tutorial is <a href="https://milanardeshana.wordpress.com/library/" >here</a>.
